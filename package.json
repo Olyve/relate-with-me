@@ -10,13 +10,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev-start": "export NODE_ENV=development&& nodemon starter.js",
+    "dev-start": "export NODE_ENV=development && nodemon starter.js",
     "start": "node starter.js"
   },
   "dependencies": {
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "http-errors": "^1.7.0",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.6",
     "morgan": "^1.9.0",
     "winston": "^3.0.0"
   },
@@ -29,6 +31,7 @@
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "mocha": "^5.2.0",
+    "mockgoose": "^7.3.5",
     "nodemon": "^1.18.3",
     "nyc": "^12.0.2"
   }
