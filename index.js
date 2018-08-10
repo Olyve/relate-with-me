@@ -1,6 +1,7 @@
-import app from './src/app';
-import logger from './src/utils/logger';
-import { open as openConnection } from './src/utils/database';
+const app = require('./src/app');
+const logger = require('./src/utils/logger');
+const { openConnection } = require('./src/utils/database');
+require('dotenv').config();
 
 const PORT = process.env.PORT || 3030;
 

@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { Mockgoose } from 'mockgoose'; /* eslint-disable-line */
+const mongoose = require('mongoose');
+const { Mockgoose } = require('mockgoose'); /* eslint-disable-line */
 
 mongoose.Promise = global.Promise;
 
@@ -10,13 +10,14 @@ mongoose.Promise = global.Promise;
  * MongoDB instance.
  * @returns Promise
  */
-export const open = () => new Promise((resolve, reject) => {
+const openConnection = () => new Promise((resolve, reject) => {
+  const user = process.env.dbUser;
+  const pwd = process.env.dbPwd;
   // Connect to hosted db or locally hosted db
-  const databaseURI = process.env.MONGODB_URI || 'mongodb://localhost/relate-with-me';
-  mongoose.connect(databaseURI, (err) => {
-    if (err) return reject(err);
-    return resolve();
-  });
+  const databaseURI = `mongodb://${user}:${pwd}@ds018568.mlab.com:18568/relate-with-me`;
+  mongoose.connect(databaseURI)
+    .then(() => resolve())
+    .catch(err => reject(err));
 });
 
 /**
@@ -25,7 +26,7 @@ export const open = () => new Promise((resolve, reject) => {
  *  a specific way before and after each test.
  * @returns Promise
  */
-export const openTestDatabase = () => new Promise((resolve, reject) => {
+const openTestDatabase = () => new Promise((resolve, reject) => {
   const mockDB = new Mockgoose(mongoose);
 
   mockDB.prepareStorage().then(() => {
@@ -39,4 +40,10 @@ export const openTestDatabase = () => new Promise((resolve, reject) => {
 /**
  * @description Closes the mongoose connection to MongoDB.
  */
-export const close = () => mongoose.disconnect();
+const closeConnection = () => mongoose.disconnect();
+
+module.exports = {
+  openConnection,
+  openTestDatabase,
+  closeConnection,
+};

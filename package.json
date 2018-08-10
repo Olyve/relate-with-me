@@ -10,10 +10,11 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev-start": "export NODE_ENV=development && nodemon starter.js",
-    "start": "node starter.js"
+    "dev-start": "export NODE_ENV=development && nodemon index.js",
+    "start": "node index.js"
   },
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "http-errors": "^1.7.0",
@@ -23,8 +24,6 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "eslint": "^4.19.1",
