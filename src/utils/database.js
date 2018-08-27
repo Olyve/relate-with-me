@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { Mockgoose } = require('mockgoose'); /* eslint-disable-line */
 
 mongoose.Promise = global.Promise;
 
@@ -11,30 +10,9 @@ mongoose.Promise = global.Promise;
  * @returns Promise
  */
 const openConnection = () => new Promise((resolve, reject) => {
-  const user = process.env.dbUser;
-  const pwd = process.env.dbPwd;
-  // Connect to hosted db or locally hosted db
-  const databaseURI = `mongodb://${user}:${pwd}@ds018568.mlab.com:18568/relate-with-me`;
-  mongoose.connect(databaseURI)
+  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
     .then(() => resolve())
     .catch(err => reject(err));
-});
-
-/**
- * @description Opens a connection to an in-memory MongoDB instance using Mockgoose.
- *  This is very useful for testing when the tables may need to be reset or set up in
- *  a specific way before and after each test.
- * @returns Promise
- */
-const openTestDatabase = () => new Promise((resolve, reject) => {
-  const mockDB = new Mockgoose(mongoose);
-
-  mockDB.prepareStorage().then(() => {
-    mongoose.connect('mongodb://localhost/test-db', (err) => {
-      if (err) return reject(err);
-      return resolve();
-    });
-  }).catch(err => reject(err));
 });
 
 /**
@@ -44,6 +22,5 @@ const closeConnection = () => mongoose.disconnect();
 
 module.exports = {
   openConnection,
-  openTestDatabase,
   closeConnection,
 };
