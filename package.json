@@ -10,8 +10,9 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev-start": "export NODE_ENV=development && nodemon index.js",
-    "start": "node index.js"
+    "dev-start": "NODE_ENV=development nodemon index.js",
+    "start": "node index.js",
+    "clean": "./clean.sh"
   },
   "dependencies": {
     "dotenv": "^6.0.0",
