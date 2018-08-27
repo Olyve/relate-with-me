@@ -1,10 +1,10 @@
-import express, { json, urlencoded } from 'express';
-import morgan from 'morgan';
-import createError from 'http-errors';
-import helmet from 'helmet';
+const express = require('express');
+const morgan = require('morgan');
+const createError = require('http-errors');
+const helmet = require('helmet');
 
 // Import Routers
-import indexRouter from './routes/index';
+const indexRouter = require('./routes/index');
 
 const app = express();
 
@@ -13,8 +13,8 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 
 // Middleware
 app.use(helmet());
-app.use(json());
-app.use(urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use('/', indexRouter);
@@ -35,4 +35,4 @@ app.use((err, req, res) => {
   });
 });
 
-export default app;
+module.exports = app;

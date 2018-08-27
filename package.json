@@ -10,25 +10,29 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev-start": "export NODE_ENV=development&& nodemon starter.js",
-    "start": "node starter.js"
+    "dev-start": "NODE_ENV=development nodemon index.js",
+    "start": "node index.js",
+    "clean": "./clean.sh",
+    "remote-test": "echo 'not currently setup'"
   },
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
     "http-errors": "^1.7.0",
+    "mongodb": "^3.1.1",
+    "mongoose": "^5.2.6",
     "morgan": "^1.9.0",
     "winston": "^3.0.0"
   },
   "devDependencies": {
-    "babel-preset-env": "^1.7.0",
-    "babel-register": "^6.26.0",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "mocha": "^5.2.0",
+    "mockgoose": "^7.3.5",
     "nodemon": "^1.18.3",
     "nyc": "^12.0.2"
   }
