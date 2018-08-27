@@ -12,7 +12,8 @@
   "scripts": {
     "dev-start": "NODE_ENV=development nodemon index.js",
     "start": "node index.js",
-    "clean": "./clean.sh"
+    "clean": "./clean.sh",
+    "remote-test": "echo 'not currently setup'"
   },
   "dependencies": {
     "dotenv": "^6.0.0",
