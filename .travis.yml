@@ -3,8 +3,3 @@ node_js:
 - '8'
 script:
 - yarn remote-test
-deploy:
-  provider: heroku
-  api_key:
-    secure: D32m+IkrhDd4NgQ4BPyOhbx/VdNL9cF9N+QnEd//v2K8UwuKxkWWs4t6mUJvUK+UW4ZvoUfO57UdG4sZym5dpXesaG3t7fXNxU0PUTYA51QaQ7WwmMFBF7t6fow4ODqSfSazYLNoBxSejq+lq1OKpyizHBzEG2klZR+nrGw/erp1AhVk81s1aVJVwm2gLXmSfGNymdgOT4tKkJINAXtZcp9tyCv21p8MhELO/9IzK7Z5m5p5v+2/D6b/QLmPe9TxvK8x03P2tNuL9jQUsD+HuDwrzehtAqCVDy3N32wvPuvvVFA19pnJXtgqLrlFAqnfwRtsAZGgeuKYpHDWgT3IzYEkQMo45kJG3p59H40u6XEg8VmKiuNV6mFMd6D/TRCRUUkGAY+87pPLakMeX/GWYGy8qfXx5HITr1VYd0j3eeOPMoWvGFBUbWVpcGkrAoQaEk7wGw/q5WqrfYz77p+IwmFme2G3fw9Hq/Wqo36nDBr+tdBJA7d6qiMDC1WWcDvuesQNKCtl7qmGRoUMxc2N8k0TUhB0kaQJ/YRpV90sgdVy7D9/bn1iTmlqo/L4y8Vi7O21UOxqqbAmJLMfZ9wlnWpkgdac1/RkmnouFcU8uO8W0h0NPpFISxYXltsvERkbTMMLMcHtKJV9pbzcgG67XpaHsXZKlCxpKIxX8E9oNuk=
-  app: relate-with-me-staging
