@@ -1,0 +1,23 @@
+{
+  "name": "relate-with-me",
+  "scripts": {
+  },
+  "env": {
+    "MONGO_URI": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
