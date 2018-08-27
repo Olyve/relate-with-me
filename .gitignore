@@ -9,3 +9,7 @@ node_modules/
 
 # Environment
 .env
+
+# Test Coverage
+.nyc_output/
+coverage/
