@@ -13,7 +13,9 @@
     "dev-start": "NODE_ENV=development nodemon index.js",
     "start": "node index.js",
     "clean": "./clean.sh",
-    "remote-test": "echo 'not currently setup'"
+    "test": "nyc mocha --timeout 120000 --exit && yarn report",
+    "remote-test": "nyc --reporter=lcovonly mocha --reporter min --timeout 120000 --exit",
+    "report": "nyc report --reporter=html"
   },
   "dependencies": {
     "dotenv": "^6.0.0",

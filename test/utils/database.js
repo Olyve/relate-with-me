@@ -11,13 +11,15 @@ const openTestDatabase = () => new Promise((resolve, reject) => {
   const mockDB = new Mockgoose(mongoose);
 
   mockDB.prepareStorage().then(() => {
-    mongoose.connect('mongodb://localhost/test-db', (err) => {
-      if (err) return reject(err);
-      return resolve();
-    });
-  }).catch(err => reject(err));
+    mongoose.connect('mongodb://localhost/test-db', { useNewUrlParser: true })
+      .then(() => resolve())
+      .catch(err => reject(err));
+  });
 });
+
+const closeTestDatabase = () => mongoose.disconnect();
 
 module.exports = {
   openTestDatabase,
+  closeTestDatabase,
 };
