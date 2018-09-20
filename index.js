@@ -1,6 +1,6 @@
-const app = require('./src/app');
-const logger = require('./src/utils/logger');
-const { openConnection } = require('./src/utils/database');
+const app = require('./app');
+const logger = require('./utils/logger');
+const { openConnection } = require('./utils/database');
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3030;

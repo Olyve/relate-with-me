@@ -7,19 +7,25 @@ const path = require('path');
 // Import Routers
 const indexRouter = require('./routes/index');
 
+// Create app instance
 const app = express();
 
 // Setup logging
 if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 
+// Setup Views
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
+// Setup public directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Configure session
+
 // Middleware
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-// Setup Views
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
 
 // Routes
 app.use('/', indexRouter);
