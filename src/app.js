@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const createError = require('http-errors');
 const helmet = require('helmet');
+const path = require('path');
 
 // Import Routers
 const indexRouter = require('./routes/index');
@@ -15,6 +16,10 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// Setup Views
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
 
 // Routes
 app.use('/', indexRouter);
