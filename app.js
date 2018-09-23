@@ -3,6 +3,12 @@ const morgan = require('morgan');
 const createError = require('http-errors');
 const helmet = require('helmet');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const { Strategy } = require('passport-local');
+const session = require('express-session');
+
+const Organization = require('./models/organization');
 
 // Import Routers
 const indexRouter = require('./routes/index');
@@ -20,7 +26,27 @@ app.set('view engine', 'hbs');
 // Setup public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Configure Passport
+passport.use(new Strategy(Organization.authenticate()));
+// Uncomment when Employees are ready for authentication
+// passport.use(new Strategy(Employee.authenticate()));
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((obj, done) => {
+  done(null, obj);
+});
+
 // Configure session
+app.use(session({
+  secret: process.env.SECRET || 'this should never be used',
+  cookie: { maxAge: 3600000 },
+  resave: false,
+  saveUninitialized: true,
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cookieParser());
 
 // Middleware
 app.use(helmet());
