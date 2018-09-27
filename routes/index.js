@@ -1,10 +1,11 @@
 const { Router } = require('express');
+const { clientResponse } = require('../utils/clientResponse');
 
 const router = Router();
 
-// Root route
-router.get('/', (req, res) => {
-  res.render('index', { title: 'Welcome!' });
+// Landing page
+router.get('/', (_req, res) => {
+  clientResponse(res, 200);
 });
 
 module.exports = router;

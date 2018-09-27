@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 const { isEmail } = require('validator');
+const bcrypt = require('bcrypt');
 
 /* eslint-disable-next-line prefer-destructuring */
 const Schema = mongoose.Schema;
@@ -26,36 +26,9 @@ const OrganizationSchema = new Schema({
     type: String,
     required: true,
   },
-  street_1: {
-    type: String,
-    required: true,
-  },
-  street_2: {
-    type: String,
-    required: false,
-  },
-  city: {
-    type: String,
-    required: true,
-  },
-  state: {
-    type: String,
-    maxlength: 2,
-    required: true,
-  },
-  zip: {
-    type: Number,
-    minlength: 5,
-    maxlength: 5,
-    required: true,
-  },
-  industry: {
-    type: String,
-    required: true,
-  },
 });
 
-/* eslint-disable-next-line func-names */
+/* eslint-disable func-names, prefer-arrow-callback */
 OrganizationSchema.pre('save', function (next) {
   const now = new Date();
   this.updatedAt = now;
@@ -69,12 +42,20 @@ OrganizationSchema.pre('save', function (next) {
   }
 
   // Salting
-  return bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (_, hash) => {
+  return bcrypt.genSalt(
+    10,
+    (err, salt) => bcrypt.hash(user.password, salt, (_, hash) => {
       user.password = hash;
       return next();
-    });
-  });
+    }),
+  );
 });
+
+// Comapring the password as a method
+OrganizationSchema.methods.comparePassword = function (password, done) {
+  bcrypt.compare(password, this.password, function (err, isMatch) {
+    done(err, isMatch);
+  });
+};
 
 module.exports = mongoose.model('Organization', OrganizationSchema);
