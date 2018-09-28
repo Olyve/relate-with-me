@@ -15,7 +15,11 @@ after((done) => {
 
 // Run all test suites
 describe('Running Relate With Me tests...', () => {
-  describe('Testing main app file...', () => {
+  describe('Testing server...', () => {
+    require('./app.test');
+  });
+
+  describe('Testing routes...', () => {
     require('./routes/index.test');
   });
 });

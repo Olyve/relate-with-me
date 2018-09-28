@@ -1,24 +1,28 @@
-// Import required components
+/** Import required components */
 const {
   chai,
   server,
-} = require('../common');
+} = require('../test.config');
 
-describe('App', () => {
-  // =========================
-  //
-  // Test Index Route
-  //
-  // =========================
+/**
+ * Test Organization Registration
+ */
+describe('POST /register/organization', () => {
+  context('when receiving a valid payload', () => {
+    it('creates a new Organization', (done) => {
+      const org = {
+        name: 'Apple',
+        email: 'test@mail.com',
+        password: 'password',
+      };
 
-  it('sucessfully responds with 200', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.property('messages');
-        res.body.messages.should.contain('Request succeeded.');
-        done();
-      });
+      chai.request(server)
+        .post('/register/organization')
+        .send(org)
+        .end((err, res) => {
+          res.should.have.status(201);
+          done();
+        });
+    });
   });
 });

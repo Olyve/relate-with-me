@@ -1,0 +1,27 @@
+{
+  "plugins": [],
+  "recurseDepth": 10,
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": [
+      "./index.js",
+      "./app.js",
+      "./config",
+      "./utils",
+      "./routes",
+      "./models"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "sourceType": "module",
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    }
+  }
+}
