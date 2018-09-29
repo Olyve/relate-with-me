@@ -6,12 +6,14 @@
   },
   "source": {
     "include": [
-      "./index.js",
-      "./app.js",
+      "./",
       "./config",
       "./utils",
       "./routes",
       "./models"
+    ],
+    "exclude": [
+      "./node_modules"
     ],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
@@ -23,5 +25,8 @@
     "default": {
       "outputSourceFiles": true
     }
+  },
+  "opts": {
+    "template": "node_modules/docdash"
   }
 }

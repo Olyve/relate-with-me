@@ -16,11 +16,12 @@
     "test": "nyc --reporter=text-summary mocha --timeout 120000 --exit && yarn report",
     "remote-test": "mocha --reporter min --timeout 120000 --exit",
     "report": "nyc report --reporter=html",
-    "create-docs": "jsdoc -c conf.json -d ./public/",
+    "create-docs": "jsdoc -c conf.json -d ./docs/ -R README.md",
     "open-docs": "open './out/index.html'"
   },
   "dependencies": {
     "bcrypt": "^3.0.1",
+    "docdash": "^1.0.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
@@ -46,6 +47,8 @@
     "events": {
       "restart": "yarn create-docs"
     },
-    "ignore": ["./public"]
+    "ignore": [
+      "./docs"
+    ]
   }
 }

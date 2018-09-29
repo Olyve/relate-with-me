@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 /** Configure docs directory */
-app.use('/docs', express.static(path.join(__dirname, '/public')));
+app.use('/docs', express.static(path.join(__dirname, '/docs')));
 
 /** Configure the routes */
 app.use('/', indexRouter);

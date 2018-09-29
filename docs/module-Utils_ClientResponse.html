@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Utils/ClientResponse - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-Config_Database.html">Config/Database</a><ul class='methods'><li data-type='method'><a href="module-Config_Database.html#~closeConnection">closeConnection</a></li><li data-type='method'><a href="module-Config_Database.html#~openConnection">openConnection</a></li></ul></li><li><a href="module-Models_Organization.html">Models/Organization</a><ul class='methods'><li data-type='method'><a href="module-Models_Organization.html#~preSave">preSave</a></li></ul></li><li><a href="module-Routes_Register.html">Routes/Register</a></li><li><a href="module-Routes_Root.html">Routes/Root</a></li><li><a href="module-Server_App.html">Server/App</a></li><li><a href="module-Server_Index.html">Server/Index</a></li><li><a href="module-Utils_ClientResponse.html">Utils/ClientResponse</a><ul class='methods'><li data-type='method'><a href="module-Utils_ClientResponse.html#~respondWith">respondWith</a></li></ul></li><li><a href="module-Utils_Logger.html">Utils/Logger</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Utils/ClientResponse</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        
+            
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+                <div class="description">ClientResponse is a module that standardizes the responses that
+are sent to a client. The module assumes that the Express framework is
+being used and it is therefore a requirement for the module to work. The
+main function returned from the module is used to modify an Express Request
+object by setting up the status codes and using a JSON payload with a
+standardized response. The messages sent back to the client can be overriden
+with custom messages. It is also possible to send data back to the client.
+All of the standardized messages are client safe, meaning they do not leak
+information regarding what specifically went wrong in the case of an error.
+Remember that all messages, standard and custom, are easily viewable by the
+client and therefore it would be unwise to send anything you would not want
+the client to see.</div>
+            
+
+            
+                
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_clientResponse.js.html">utils/clientResponse.js</a>, <a href="utils_clientResponse.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Sam Galizia</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        
+        </div>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Requires</h3>
+
+        <ul>
+            <li><a href="https://www.npmjs.com/package/express">Express</a></li>
+        </ul>
+    
+
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="~StatusCodes"><span class="type-signature">(inner, constant) </span>StatusCodes<span class="type-signature"> :object</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_clientResponse.js.html">utils/clientResponse.js</a>, <a href="utils_clientResponse.js.html#line20">line 20</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    An object containg key-value pairs that map directly to standard HTTP
+status codes. All keys are numeric values with a matching string
+containing client safe statuses.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// Providing a numeric HTTP Status code returns the matching string
+StatusCodes[200] => "Success"
+StatusCodes[404] => "Not Found"</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="~StatusMessages"><span class="type-signature">(inner, constant) </span>StatusMessages<span class="type-signature"> :object</span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_clientResponse.js.html">utils/clientResponse.js</a>, <a href="utils_clientResponse.js.html#line42">line 42</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    An object containg key-value pairs that map directly to standard HTTP
+status codes. All keys are numeric values with a matching string
+containing client safe status messages.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>//Providing a numeric HTTP Status code returns the matching string
+StatusMessages[200] => "Request succeeded."
+StatusMessages[404] => "Nothing to see here ¯\_(ツ)_/¯."</code></pre>
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="~respondWith"><span class="type-signature">(inner) </span>respondWith<span class="signature">(res, code, messages<span class="signature-attributes">opt</span>, data<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {Express.Response}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_clientResponse.js.html">utils/clientResponse.js</a>, <a href="utils_clientResponse.js.html#line100">line 100</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Takes an Express response object, an http status code, as well
+as optional custom messages and data. Using these parameters, it returns
+a formatted Express response with a JSON payload configured with the optional
+parameters. This function is useful for standardizing API responses.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Examples</h5>
+    
+        <p class="code-caption">Example showing basic usage with defaults</p>
+    
+    <pre class="prettyprint"><code>router.get('/', (req, res) => {
+ return respondWith(res, 200);
+});
+
+// The returned json payload to the user:
+{
+ status: "Success",
+ messages: [
+   "Request succeeded."
+ ]
+}</code></pre>
+
+        <p class="code-caption">Example overriding defaults</p>
+    
+    <pre class="prettyprint"><code>router.post('/user', (req, res) => {
+ const user = new User(req.body);
+
+ user.save().then(() => {
+   return respondWith(res, 201, ["User was successfully created!"]);
+ });
+});</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>res</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Express.Response</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An Express Response object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>code</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An HTTP Status Code</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>messages</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;String></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">An optional array of strings to replace the default ones provided by the
+StatusMessages object.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>data</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">any</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Any data that may need to be sent to the client. This is left intentionally
+as open as possible so that it can be very versatile. An example might be
+returning a JWT to the user under the data heading.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The modified response object.
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Express.Response</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Sep 29 2018 16:09:13 GMT-0700 (Pacific Daylight Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+
+
+</body>
+</html>
