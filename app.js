@@ -15,7 +15,7 @@ const morgan = require('morgan');
 const helmet = require('helmet');
 const path = require('path');
 
-const indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index.routes');
 
 /** Create instance of Express App */
 const app = express();

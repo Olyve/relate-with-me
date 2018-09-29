@@ -4,9 +4,7 @@ const {
   server,
 } = require('../test.config');
 
-/**
- * Test Organization Registration
- */
+/** Test Organization Registration */
 describe('POST /register/organization', () => {
   context('when receiving a valid payload', () => {
     it('creates a new Organization', (done) => {
