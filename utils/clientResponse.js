@@ -78,7 +78,7 @@ const StatusMessages = {
  * @returns {Express.Response} The modified response object.
  * @example <caption>Example showing basic usage with defaults</caption>
  * router.get('/', (req, res) => {
- *  return clientResponse(res, 200);
+ *  return respondWith(res, 200);
  * });
  *
  * // The returned json payload to the user:
@@ -93,11 +93,11 @@ const StatusMessages = {
  *  const user = new User(req.body);
  *
  *  user.save().then(() => {
- *    return clientResponse(res, 201, ["User was successfully created!"]);
+ *    return respondWith(res, 201, ["User was successfully created!"]);
  *  });
  * });
  */
-function clientResponse(res, code, messages, data) {
+function respondWith(res, code, messages, data) {
   const payload = {
     status: StatusCodes[code],
     messages: messages || [StatusMessages[code]],
@@ -110,4 +110,6 @@ function clientResponse(res, code, messages, data) {
   return res.status(code).json(payload);
 }
 
-module.exports = { clientResponse };
+module.exports = {
+  respondWith,
+};
