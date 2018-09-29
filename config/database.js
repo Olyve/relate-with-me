@@ -3,8 +3,8 @@
  * the intermediary between the server and MongoDB.
  * @author Sam Galizia
  *
- * @module Database
- * @requires NPM:mongoose
+ * @module Config/Database
+ * @requires {@link https://www.npmjs.com/package/mongoose Mongoose}
  */
 
 const mongoose = require('mongoose');
@@ -17,7 +17,7 @@ mongoose.Promise = global.Promise;
  * the MONGODB_URI in the environment variables. If not found, it is assumed
  * that the environment is in development mode and will create/connect to a
  * locally hosted MongoDB instance.
- * @returns {global.Promise} the result of attempting to open a connection
+ * @returns {Promise} the result of attempting to open a connection
  * to MongoDB.
  */
 const openConnection = () => new Promise((resolve, reject) => {
@@ -29,7 +29,7 @@ const openConnection = () => new Promise((resolve, reject) => {
 /**
  * @function
  * @description Closes the mongoose connection to MongoDB.
- * @returns {global.Promise} the result of attempting to close the connection
+ * @returns {Promise} the result of attempting to close the connection
  * to MongoDB.
  */
 const closeConnection = () => mongoose.disconnect();

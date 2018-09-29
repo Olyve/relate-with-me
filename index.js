@@ -4,6 +4,7 @@
  * it is hosted, making it the entry point for the server.
  * @author Sam Galizia
  *
+ * @module Server/Index
  * @requires module:App
  * @requires module:Logger
  * @requires module:Database~openConnection

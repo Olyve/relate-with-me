@@ -3,11 +3,12 @@
  * configure the server will happen here.
  * @author Sam Galizia
  *
- * @module App
- * @requires NPM:express
- * @requires NPM:morgan
- * @requires NPM:helmet
- * @requires NPM:path
+ * @module Server/App
+ * @requires {@link https://www.npmjs.com/package/express Express}
+ * @requires {@link https://www.npmjs.com/package/morgan Morgan}
+ * @requires {@link https://www.npmjs.com/package/helmet Helmet}
+ * @requires {@link https://nodejs.org/api/path.html Path}
+ * @returns {Express} The configured server
  */
 
 const express = require('express');

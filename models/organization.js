@@ -1,10 +1,29 @@
+/**
+ * @file The Organization model.
+ * @author Sam Galizia
+ *
+ * @module Models/Organization
+ * @requires {@link https://www.npmjs.com/package/mongoose Mongoose}
+ * @requires {@link https://www.npmjs.com/package/validator Validator}
+ * @requires {@link https://www.npmjs.com/package/bcrypt bcrypt}
+ * @returns {Mongoose.Model} Organization
+ */
+
+// FIXME: Be more descriptive in the fiel description
+
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
-/* eslint-disable-next-line prefer-destructuring */
-const Schema = mongoose.Schema;
+/**
+ * @constant {Mongoose.Schema} Schema
+ */
+const Schema = mongoose.Schema;/* eslint-disable-line prefer-destructuring */
 
+/**
+ * @constant {Schema} OrganizationSchema
+ * The schema that defines the <tt>Organization</tt> model and its validations.
+ */
 const OrganizationSchema = new Schema({
   createdAt: { type: Date },
   updatedAt: { type: Date },
@@ -28,8 +47,13 @@ const OrganizationSchema = new Schema({
   },
 });
 
-/* eslint-disable func-names, prefer-arrow-callback */
-OrganizationSchema.pre('save', function (next) {
+/**
+ * @description The <tt>preSave</tt> method is used to perform some operations
+ * before the model saves to the database. Mainly it updates the timestamps and
+ * makes sure to hash the password before saving.
+ * @param {function} next Callback to indicate that function is finished
+ */
+const preSave = (next) => {
   const now = new Date();
   this.updatedAt = now;
   if (!this.createdAt) {
@@ -41,7 +65,7 @@ OrganizationSchema.pre('save', function (next) {
     return next();
   }
 
-  // Salting
+  /** Salting/Hashing the password */
   return bcrypt.genSalt(
     10,
     (err, salt) => bcrypt.hash(user.password, salt, (_, hash) => {
@@ -49,13 +73,21 @@ OrganizationSchema.pre('save', function (next) {
       return next();
     }),
   );
-});
-
-// Comapring the password as a method
-OrganizationSchema.methods.comparePassword = function (password, done) {
-  bcrypt.compare(password, this.password, function (err, isMatch) {
-    done(err, isMatch);
-  });
 };
 
-module.exports = mongoose.model('Organization', OrganizationSchema);
+/** Setting the preSave method to run before the model saves */
+OrganizationSchema.pre('save', preSave);
+
+/* eslint-disable func-names */
+OrganizationSchema.methods.comparePassword = function (password, done) {
+  bcrypt.compare(password, this.password, (err, isMatch) => done(err, isMatch));
+};
+
+/**
+ * @constant {Mongoose.Model} Organization
+ * The model that was created using the <tt>mongoose.model()</tt> function
+ * and the <tt>OrganizationSchema</tt>
+ */
+const Organization = mongoose.model('Organization', OrganizationSchema);
+
+module.exports = Organization;

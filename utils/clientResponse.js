@@ -13,12 +13,12 @@
  * the client to see.
  * @author Sam Galizia
  *
- * @module ClientResponse
- * @requires NPM:express
+ * @module Utils/ClientResponse
+ * @requires {@link https://www.npmjs.com/package/express Express}
  */
 
 /**
- * @constant {Object} StatusCodes
+ * @constant {object} StatusCodes
  * An object containg key-value pairs that map directly to standard HTTP
  * status codes. All keys are numeric values with a matching string
  * containing client safe statuses.
@@ -40,7 +40,7 @@ const StatusCodes = {
 };
 
 /**
- * @constant {Object} StatusMessages
+ * @constant {object} StatusMessages
  * An object containg key-value pairs that map directly to standard HTTP
  * status codes. All keys are numeric values with a matching string
  * containing client safe status messages.
@@ -67,11 +67,11 @@ const StatusMessages = {
  * a formatted Express response with a JSON payload configured with the optional
  * parameters. This function is useful for standardizing API responses.
  * @param {Express.Response} res An Express Response object
- * @param {Number} code An HTTP Status Code
+ * @param {number} code An HTTP Status Code
  * @param {Array<String>=} messages
  * An optional array of strings to replace the default ones provided by the
  * StatusMessages object.
- * @param {*=} data
+ * @param {any=} data
  * Any data that may need to be sent to the client. This is left intentionally
  * as open as possible so that it can be very versatile. An example might be
  * returning a JWT to the user under the data heading.

@@ -2,8 +2,8 @@
  * @file The Logger module that uses Winston to create logs for the server.
  * @author Sam Galizia
  *
- * @module Logger
- * @requires NPM:winston
+ * @module Utils/Logger
+ * @requires {@link https://www.npmjs.com/package/winston Winston}
  */
 
 const { createLogger, format, transports } = require('winston');
@@ -24,8 +24,8 @@ const logger = createLogger({
 });
 
 /**
- * When not in production, add the Console as a transport layer. Adding the
- * Console makes it easier to debug when trying to track down errors.
+ * When not in production, add the Console as a transport layer. Adding
+ * the Console makes it easier to debug when trying to track down errors.
  */
 if (process.env.NODE_ENV !== 'production') {
   logger.add(new transports.Console({
