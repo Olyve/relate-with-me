@@ -1,0 +1,32 @@
+{
+  "plugins": [],
+  "recurseDepth": 10,
+  "tags": {
+    "allowUnknownTags": true
+  },
+  "source": {
+    "include": [
+      "./",
+      "./config",
+      "./utils",
+      "./routes",
+      "./models"
+    ],
+    "exclude": [
+      "./node_modules"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_"
+  },
+  "sourceType": "module",
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true
+    }
+  },
+  "opts": {
+    "template": "node_modules/docdash"
+  }
+}
