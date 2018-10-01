@@ -16,7 +16,7 @@
     "test": "nyc --reporter=text-summary mocha --timeout 120000 --exit && yarn report",
     "remote-test": "mocha --reporter min --timeout 120000 --exit",
     "report": "nyc report --reporter=html",
-    "create-docs": "jsdoc -c conf.json -d ./docs/ -R README.md",
+    "create-docs": "node_modules/.bin/jsdoc -c conf.json -d ./docs/ -R README.md",
     "open-docs": "open './out/index.html'"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "helmet": "^3.13.0",
+    "jsdoc": "^3.5.5",
     "jsonwebtoken": "^8.3.0",
     "mongodb": "^3.1.1",
     "mongoose": "^5.2.6",
