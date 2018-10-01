@@ -14,7 +14,7 @@
     "start": "yarn create-docs && node index.js",
     "clean": "./clean.sh",
     "test": "nyc --reporter=text-summary mocha --timeout 120000 --exit && yarn report",
-    "remote-test": "mocha --reporter min --timeout 120000 --exit",
+    "remote-test": "yarn create-docs && mocha --reporter min --timeout 120000 --exit",
     "report": "nyc report --reporter=html",
     "create-docs": "node_modules/.bin/jsdoc -c conf.json -d ./docs/ -R README.md",
     "open-docs": "open './out/index.html'"
