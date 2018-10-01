@@ -1,24 +1,44 @@
-const jwt = require('jsonwebtoken');
+/**
+ * @file The middleware file contains all of the middleware functions used for
+ * the server. Each function is exported and can be used individually where needed.
+ * @author Sam Galizia
+ *
+ * @module Routes/Middleware
+ * @requires {@link https://www.npmjs.com/package/jsonwebtoken JSON Web Token}
+ * @requires Utils/ClientResponse
+ * @requires Utils/Logger
+ */
 
-const clientResponse = require('../utils/clientResponse');
+const jwt = require('jsonwebtoken');
+const { respondWith } = require('../utils/clientResponse');
 const logger = require('../utils/logger');
 
-// Authentication Middleware
+/**
+ * @description The verifyAuth function is used to decrypt the JWT sent with requests
+ * and add the user info to the request.
+ * @param {Express.Request} req The request from the client
+ * @param {Express.Response} res The response object that will be sent to the
+ * client
+ * @param {function} next The callback function to move on to the next piece of
+ * middleware in the route.
+ */
 const verifyAuth = (req, res, next) => {
-  // Early exit if no Authorization header
+  /** If no Authorization header is present, return Unauthorized */
   if (req.get('Authorization') === undefined) {
-    return clientResponse(res, 401);
+    return respondWith(res, 401);
   }
 
-  // Get token from Authorization header
-  // Header format - Authorization: Bearer [token]
+  /**
+   * Get token from Authorization header.
+   * Header Format - Authorizarion: Bearer [token]
+   */
   const authToken = req.get('Authorization').split(' ')[1];
 
-  // Verify token is valid, then add to the payload and proceed
+  /** Verify token is valid, then add it to the payload and proceed */
   return jwt.verify(authToken, process.env.SECRET, (err, token) => {
     if (err) {
       logger.error(`Verify Token Error: ${err}`);
-      return clientResponse(res, 401);
+      return respondWith(res, 401);
     }
 
     req.user = token;
@@ -26,6 +46,25 @@ const verifyAuth = (req, res, next) => {
   });
 };
 
+/**
+ * @description The ignoreFavicon middleware blocks requests from web browsers
+ * for the favicon.ico that does not exist.
+ * @param {Express.Request} req The request from the client
+ * @param {Express.Response} res The response object that will be sent back to the
+ * client
+ * @param {function} next The callback function to move on to the next piece of
+ * middleware in the route.
+ */
+const ignoreFavicon = (req, res, next) => {
+  if (req.originalUrl === '/favicon.ico') {
+    return respondWith(res, 404, ['There is no favorite icon.']);
+  }
+
+  /** If not a request for favicon.ico, just continue */
+  return next();
+};
+
 module.exports = {
   verifyAuth,
+  ignoreFavicon,
 };

@@ -8,6 +8,8 @@
  * @requires {@link https://www.npmjs.com/package/morgan Morgan}
  * @requires {@link https://www.npmjs.com/package/helmet Helmet}
  * @requires {@link https://nodejs.org/api/path.html Path}
+ * @requires Routes/Middleware
+ * @requires Routes/Root
  * @returns {Express} The configured server
  */
 
@@ -15,6 +17,7 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const path = require('path');
+const { ignoreFavicon } = require('./routes/middleware');
 
 const indexRouter = require('./routes/index.routes');
 
@@ -28,6 +31,7 @@ if (process.env.NODE_ENV !== 'test') app.use(morgan('dev'));
 app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(ignoreFavicon);
 
 /** Configure docs directory */
 app.use('/docs', express.static(path.join(__dirname, '/docs')));

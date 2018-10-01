@@ -4,15 +4,28 @@ const {
   server,
 } = require('../test.config');
 
-/** Test Server Launching */
+/** Test the server */
 describe('The server', () => {
   it('sucessfully launches and responds', (done) => {
     chai.request(server)
       .get('/')
       .end((err, res) => {
         res.should.have.status(200);
+        res.body.should.have.property('status').eql('Success');
         res.body.should.have.property('messages');
         res.body.messages.should.contain('Request succeeded.');
+        done();
+      });
+  });
+
+  it('ignores requests for the favicon.ico', (done) => {
+    chai.request(server)
+      .get('/favicon.ico')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.have.property('status').eql('Not Found');
+        res.body.should.have.property('messages');
+        res.body.messages.should.contain('There is no favorite icon.');
         done();
       });
   });
