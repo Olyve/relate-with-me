@@ -46,6 +46,25 @@ const verifyAuth = (req, res, next) => {
   });
 };
 
+/**
+ * @description The ignoreFavicon middleware blocks requests from web browsers
+ * for the favicon.ico that does not exist.
+ * @param {Express.Request} req The request from the client
+ * @param {Express.Response} res The response object that will be sent back to the
+ * client
+ * @param {function} next The callback function to move on to the next piece of
+ * middleware in the route.
+ */
+const ignoreFavicon = (req, res, next) => {
+  if (req.originalUrl === '/favicon.ico') {
+    return respondWith(res, 404, ['There is no favorite icon.']);
+  }
+
+  /** If not a request for favicon.ico, just continue */
+  return next();
+};
+
 module.exports = {
   verifyAuth,
+  ignoreFavicon,
 };
