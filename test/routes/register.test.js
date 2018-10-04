@@ -1,3 +1,4 @@
+/* eslint-disable no-console, arrow-body-style */
 /** Import required components */
 const {
   chai,
@@ -7,30 +8,30 @@ const {
 
 /** Test Organization Registration */
 describe('POST /register/organization', () => {
-
   /** Remove all records before each test */
   beforeEach((done) => {
     Organization.remove({}, () => { done(); });
   });
 
   context('when receiving a valid payload', () => {
-    it('creates a new Organization', (done) => {
-      const org = {
-        name: 'Apple',
-        email: 'test@mail.com',
-        password: 'password',
-      };
+    it('creates a new Organization', () => {
+      return new Promise(async (resolve) => {
+        const org = {
+          name: 'Apple',
+          email: 'test@mail.com',
+          password: 'password',
+        };
 
-      chai.request(server)
-        .post('/register/organization')
-        .send(org)
-        .end((err, res) => {
-          res.should.have.status(201);
-          res.body.should.have.property('status').eql('Created');
-          res.body.should.have.property('messages');
-          res.body.messages.should.contain('Organization created.');
-          done();
-        });
+        const res = await chai.request(server)
+          .post('/register/organization')
+          .send(org);
+
+        res.should.have.status(201);
+        res.body.should.have.property('status').eql('Created');
+        res.body.should.have.property('messages');
+        res.body.messages.should.contain('Organization created.');
+        resolve();
+      });
     });
   });
 
@@ -39,22 +40,23 @@ describe('POST /register/organization', () => {
      * Name Validation
      */
     context('with a missing name', () => {
-      it('fails and does not create a new Organization', (done) => {
-        const org = {
-          email: 'test@mail.com',
-          password: 'password',
-        };
+      it('fails and does not create a new Organization', () => {
+        return new Promise(async (resolve) => {
+          const org = {
+            email: 'test@mail.com',
+            password: 'password',
+          };
 
-        chai.request(server)
-          .post('/register/organization')
-          .send(org)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('Path `name` is required.');
-            done();
-          });
+          const res = await chai.request(server)
+            .post('/register/organization')
+            .send(org);
+
+          res.should.have.status(400);
+          res.body.should.have.property('status').eql('Bad Request');
+          res.body.should.have.property('messages');
+          res.body.messages.should.contain('Path `name` is required.');
+          resolve();
+        });
       });
     });
 
@@ -62,43 +64,45 @@ describe('POST /register/organization', () => {
      * Email validation
      */
     context('with a missing email address', () => {
-      it('fails and does not create a new Organization', (done) => {
-        const org = {
-          name: 'Apple',
-          password: 'password',
-        };
+      it('fails and does not create a new Organization', () => {
+        return new Promise(async (resolve) => {
+          const org = {
+            name: 'Apple',
+            password: 'password',
+          };
 
-        chai.request(server)
-          .post('/register/organization')
-          .send(org)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('Path `email` is required.');
-            done();
-          });
+          const res = await chai.request(server)
+            .post('/register/organization')
+            .send(org);
+
+          res.should.have.status(400);
+          res.body.should.have.property('status').eql('Bad Request');
+          res.body.should.have.property('messages');
+          res.body.messages.should.contain('Path `email` is required.');
+          resolve();
+        });
       });
     });
 
     context('with an invalid email address', () => {
-      it('fails and does not create a new Organization', (done) => {
-        const org = {
-          name: 'Apple',
-          email: 'Not an email',
-          password: 'password',
-        };
+      it('fails and does not create a new Organization', () => {
+        return new Promise(async (resolve) => {
+          const org = {
+            name: 'Apple',
+            email: 'Not an email',
+            password: 'password',
+          };
 
-        chai.request(server)
-          .post('/register/organization')
-          .send(org)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('Not a valid email address.');
-            done();
-          });
+          const res = await chai.request(server)
+            .post('/register/organization')
+            .send(org);
+
+          res.should.have.status(400);
+          res.body.should.have.property('status').eql('Bad Request');
+          res.body.should.have.property('messages');
+          res.body.messages.should.contain('Not a valid email address.');
+          resolve();
+        });
       });
     });
 
@@ -106,43 +110,45 @@ describe('POST /register/organization', () => {
      * Password validation
      */
     context('with a missing password', () => {
-      it('fails and does not create a new Organization', (done) => {
-        const org = {
-          name: 'Apple',
-          email: 'test@mail.com',
-        };
+      it('fails and does not create a new Organization', () => {
+        return new Promise(async (resolve) => {
+          const org = {
+            name: 'Apple',
+            email: 'test@mail.com',
+          };
 
-        chai.request(server)
-          .post('/register/organization')
-          .send(org)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('Path `password` is required.');
-            done();
-          });
+          const res = await chai.request(server)
+            .post('/register/organization')
+            .send(org);
+
+          res.should.have.status(400);
+          res.body.should.have.property('status').eql('Bad Request');
+          res.body.should.have.property('messages');
+          res.body.messages.should.contain('Path `password` is required.');
+          resolve();
+        });
       });
     });
 
     context('with a password that is too short', () => {
-      it('fails and does not create a new Organization', (done) => {
-        const org = {
-          name: 'Apple',
-          email: 'test@mail.com',
-          password: 'pass',
-        };
+      it('fails and does not create a new Organization', () => {
+        return new Promise(async (resolve) => {
+          const org = {
+            name: 'Apple',
+            email: 'test@mail.com',
+            password: 'pass',
+          };
 
-        chai.request(server)
-          .post('/register/organization')
-          .send(org)
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('Password is too short.');
-            done();
-          });
+          const res = await chai.request(server)
+            .post('/register/organization')
+            .send(org);
+
+          res.should.have.status(400);
+          res.body.should.have.property('status').eql('Bad Request');
+          res.body.should.have.property('messages');
+          res.body.messages.should.contain('Password is too short.');
+          resolve();
+        });
       });
     });
   });
@@ -151,28 +157,29 @@ describe('POST /register/organization', () => {
    * Duplicate account check
    */
   context('when receiving a duplicate email address', () => {
-    it('fails and does not create a duplicate account', (done) => {
-      const org = new Organization({
-        name: 'Apple',
-        email: 'test@mail.com',
-        password: 'password',
-      });
+    it('fails and does not create a duplicate account', () => {
+      return new Promise(async (resolve) => {
+        /** Create & save model we want attempt to duplicate */
+        await new Organization({
+          name: 'Apple',
+          email: 'test@mail.com',
+          password: 'password',
+        }).save();
 
-      org.save().then(() => {
-        chai.request(server)
+        /** Attempt to save a duplicate of `org` */
+        const res = await chai.request(server)
           .post('/register/organization')
           .send({
             name: 'Google',
             email: 'test@mail.com',
             password: 'password',
-          })
-          .end((err, res) => {
-            res.should.have.status(400);
-            res.body.should.have.property('status').eql('Bad Request');
-            res.body.should.have.property('messages');
-            res.body.messages.should.contain('An organization with that email already exists.');
-            done();
           });
+
+        res.should.have.status(400);
+        res.body.should.have.property('status').eql('Bad Request');
+        res.body.should.have.property('messages');
+        res.body.messages.should.contain('An organization with that email already exists.');
+        resolve();
       });
     });
   });
