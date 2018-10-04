@@ -1,5 +1,7 @@
 /**
- * @file The Organization model.
+ * @file The Organization model file describes the Organization
+ * model and its functions. Mongoose is used as the ORM between the app and
+ * MongoDB.
  * @author Sam Galizia
  *
  * @module Models/Organization
@@ -8,8 +10,6 @@
  * @requires {@link https://www.npmjs.com/package/bcrypt bcrypt}
  * @returns {Mongoose.Model} Organization
  */
-
-// FIXME: Be more descriptive in the fiel description
 
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
