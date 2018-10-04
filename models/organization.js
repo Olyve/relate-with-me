@@ -53,27 +53,27 @@ const OrganizationSchema = new Schema({
  * makes sure to hash the password before saving.
  * @param {function} next Callback to indicate that function is finished
  */
-const preSave = (next) => {
+function preSave(next) {
   const now = new Date();
   this.updatedAt = now;
   if (!this.createdAt) {
     this.createdAt = now;
   }
 
-  const user = this;
-  if (!user.isModified('password')) {
+  const org = this;
+  if (!org.isModified('password')) {
     return next();
   }
 
   /** Salting/Hashing the password */
   return bcrypt.genSalt(
     10,
-    (err, salt) => bcrypt.hash(user.password, salt, (_, hash) => {
-      user.password = hash;
+    (err, salt) => bcrypt.hash(org.password, salt, (_, hash) => {
+      org.password = hash;
       return next();
     }),
   );
-};
+}
 
 /** Setting the preSave method to run before the model saves */
 OrganizationSchema.pre('save', preSave);
