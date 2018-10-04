@@ -2,10 +2,17 @@
 const {
   chai,
   server,
+  Organization,
 } = require('../test.config');
 
 /** Test Organization Registration */
 describe('POST /register/organization', () => {
+
+  /** Remove all records before each test */
+  beforeEach((done) => {
+    Organization.remove({}, () => { done(); });
+  });
+
   context('when receiving a valid payload', () => {
     it('creates a new Organization', (done) => {
       const org = {
@@ -134,6 +141,36 @@ describe('POST /register/organization', () => {
             res.body.should.have.property('status').eql('Bad Request');
             res.body.should.have.property('messages');
             res.body.messages.should.contain('Password is too short.');
+            done();
+          });
+      });
+    });
+  });
+
+  /**
+   * Duplicate account check
+   */
+  context('when receiving a duplicate email address', () => {
+    it('fails and does not create a duplicate account', (done) => {
+      const org = new Organization({
+        name: 'Apple',
+        email: 'test@mail.com',
+        password: 'password',
+      });
+
+      org.save().then(() => {
+        chai.request(server)
+          .post('/register/organization')
+          .send({
+            name: 'Google',
+            email: 'test@mail.com',
+            password: 'password',
+          })
+          .end((err, res) => {
+            res.should.have.status(400);
+            res.body.should.have.property('status').eql('Bad Request');
+            res.body.should.have.property('messages');
+            res.body.messages.should.contain('An organization with that email already exists.');
             done();
           });
       });
