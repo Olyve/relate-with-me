@@ -6,12 +6,14 @@
  *
  * @module Routes/Register
  * @requires {@link https://www.npmjs.com/package/express Express}
- * @requires {@link module:ClientResponse ClientResponse}
- * @requires {@link module:Models/Organization Organization}
+ * @requires Utils/ClientResponse
+ * @requires Utils/Logger
+ * @requires Models/Organization
  */
 
 const { Router } = require('express');
 const { respondWith } = require('../utils/clientResponse');
+const logger = require('../utils/logger');
 const Organization = require('../models/organization');
 
 /**
@@ -27,8 +29,19 @@ const router = Router();
  */
 router.post('/organization', (req, res) => {
   const org = new Organization(req.body);
+  org.save()
+    .then((saved) => {
+      respondWith(res, 201, ['Organization created.'], { org_id: saved.id });
+    })
+    .catch((err) => {
+      /** Log out errors if something went wrong */
+      logger.error(err);
 
-  return respondWith(res, 201);
+      /** Collect errors in an array */
+      const keys = Object.keys(err.errors);
+      const errorMessages = keys.map(key => err.errors[key].message);
+      return respondWith(res, 400, errorMessages);
+    });
 });
 
 module.exports = router;
