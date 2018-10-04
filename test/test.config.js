@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const { Mockgoose } = require('mockgoose');
 const server = require('../app');
 
+/** Import Models */
+const Organization = require('../models/organization');
+
 /** Set Mongoose Promise */
 mongoose.Promise = global.Promise;
 
@@ -36,4 +39,5 @@ module.exports = {
   closeTestDatabase,
   openTestDatabase,
   server,
+  Organization,
 };
