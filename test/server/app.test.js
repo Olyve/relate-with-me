@@ -1,4 +1,5 @@
-// Import required components
+/* eslint-disable arrow-body-style */
+/** Import required components */
 const {
   chai,
   server,
@@ -6,28 +7,28 @@ const {
 
 /** Test the server */
 describe('The server', () => {
-  it('sucessfully launches and responds', (done) => {
-    chai.request(server)
-      .get('/')
-      .end((err, res) => {
-        res.should.have.status(200);
-        res.body.should.have.property('status').eql('Success');
-        res.body.should.have.property('messages');
-        res.body.messages.should.contain('Request succeeded.');
-        done();
-      });
+  it('sucessfully launches and responds', () => {
+    return new Promise(async (resolve) => {
+      const res = await chai.request(server).get('/');
+
+      res.should.have.status(200);
+      res.body.should.have.property('status').eql('Success');
+      res.body.should.have.property('messages');
+      res.body.messages.should.contain('Request succeeded.');
+      resolve();
+    });
   });
 
-  it('ignores requests for the favicon.ico', (done) => {
-    chai.request(server)
-      .get('/favicon.ico')
-      .end((err, res) => {
-        res.should.have.status(404);
-        res.body.should.have.property('status').eql('Not Found');
-        res.body.should.have.property('messages');
-        res.body.messages.should.contain('There is no favorite icon.');
-        done();
-      });
+  it('ignores requests for the favicon.ico', () => {
+    return new Promise(async (resolve) => {
+      const res = await chai.request(server).get('/favicon.ico');
+
+      res.should.have.status(404);
+      res.body.should.have.property('status').eql('Not Found');
+      res.body.should.have.property('messages');
+      res.body.messages.should.contain('There is no favorite icon.');
+      resolve();
+    });
   });
 });
 
@@ -37,13 +38,15 @@ describe('The server', () => {
  * dynamically and therefore I do not really know how to test this.
  */
 describe('The documentation', () => {
-  it('GET /docs', (done) => {
-    chai.request(server)
-      .get('/docs')
-      .end((err, res) => {
+  context('GET /docs', () => {
+    it('returns the docs', () => {
+      return new Promise(async (resolve) => {
+        const res = await chai.request(server).get('/docs');
+
         res.should.have.status(200);
         res.should.have.header('Content-Type', 'text/html; charset=UTF-8');
-        done();
+        resolve();
       });
+    });
   });
 });
