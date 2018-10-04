@@ -27,7 +27,7 @@ const logger = createLogger({
  * When not in production, add the Console as a transport layer. Adding
  * the Console makes it easier to debug when trying to track down errors.
  */
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV === 'development') {
   logger.add(new transports.Console({
     format: format.simple(),
   }));
