@@ -6,6 +6,9 @@ const mongoose = require('mongoose');
 const { Mockgoose } = require('mockgoose');
 const server = require('../app');
 
+/** Set Mongoose Promise */
+mongoose.Promise = global.Promise;
+
 /** Setup Chai and Chai Http */
 chai.should();
 chai.use(chaiHttp);
