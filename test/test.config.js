@@ -4,6 +4,8 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
 const { Mockgoose } = require('mockgoose');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const server = require('../app');
 
 /** Import Models */
@@ -40,4 +42,5 @@ module.exports = {
   openTestDatabase,
   server,
   Organization,
+  jwt,
 };

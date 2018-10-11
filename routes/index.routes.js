@@ -9,12 +9,14 @@
  * @requires {@link https://www.npmjs.com/package/express Express}
  * @requires Utils/ClientResponse
  * @requires Routes/Register
+ * @requires Routes/Login
  * @returns {Express.Router}
  */
 
 const { Router } = require('express');
 const { respondWith } = require('../utils/clientResponse');
 const registerRouter = require('./register');
+const loginRouter = require('./login');
 
 const router = Router();
 
@@ -34,5 +36,6 @@ router.get('/docs', (req, res) => {
 
 /** Configure routers */
 router.use('/register', registerRouter);
+router.use('/login', loginRouter);
 
 module.exports = router;

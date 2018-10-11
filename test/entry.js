@@ -1,5 +1,7 @@
 /* eslint-disable global-require */
 
+process.env.NODE_ENV = 'test';
+
 /** Required components from common */
 const {
   openTestDatabase,
@@ -26,5 +28,6 @@ describe('Running test groups...', () => {
 
   describe('Testing routes...', () => {
     require('./routes/register.test');
+    require('./routes/login.test');
   });
 });
